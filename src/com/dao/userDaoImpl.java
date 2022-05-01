@@ -22,7 +22,7 @@ public class userDaoImpl implements userDao{
 
     @Override
     public boolean LoginUser(String id, String password, String identity) throws Exception {
-        String sql = "select * from forum.user";
+        String sql = "select * from post_bar.user";
         Statement stmt = conn.createStatement();
         rs = stmt.executeQuery(sql);
         while(rs.next()){
@@ -39,7 +39,7 @@ public class userDaoImpl implements userDao{
 
     @Override
     public boolean addUser(User user) throws Exception {
-        String sql = "insert into forum.user values(?,?,?,?)";
+        String sql = "insert into post_bar.user values(?,?,?,?)";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setString(1, user.getId());
         stmt.setString(2, user.getPassword());
@@ -55,7 +55,7 @@ public class userDaoImpl implements userDao{
 
     @Override
     public int deleteUser(String id) throws Exception {
-        String sql = "delete from forum.user where id=?";
+        String sql = "delete from post_bar.user where id=?";
         int result = 0;
         this.pstmt = this.conn.prepareStatement(sql);//获取PreparedStatement对象
         this.pstmt.setString(1, id);
@@ -66,7 +66,7 @@ public class userDaoImpl implements userDao{
 
     @Override
     public int updateUser(User user) throws Exception {
-        String sql = "update forum.user set username =? where id=?";
+        String sql = "update post_bar.user set username =? where id=?";
         int result = 0;
         this.pstmt = this.conn.prepareStatement(sql);
         this.pstmt.setString(3, user.getUsername());

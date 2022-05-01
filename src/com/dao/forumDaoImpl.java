@@ -22,10 +22,9 @@ public class forumDaoImpl implements forumDao{
 
     @Override
     public int addForum(Forum forum) throws Exception {
-        String sql = "insert into forum.forum(forum_id, title, content, author) values(?,?,?,?)";
+        String sql = "insert into post_bar.posts(title, content, author) values(?,?,?)";
         int result = 0;
         this.pstmt = this.conn.prepareStatement(sql);//获取PreparedStatement对象
-        this.pstmt.setInt(1, forum.getForumId());
         this.pstmt.setString(2, forum.getTitle());
         this.pstmt.setString(3, forum.getContent());
         this.pstmt.setString(4, forum.getAuthor());
@@ -36,7 +35,7 @@ public class forumDaoImpl implements forumDao{
 
     @Override
     public int deleteForum(int forumId) throws Exception {
-        String sql = "delete from forum.forum where forum_id=?";
+        String sql = "delete from post_bar.posts where post_id=?";
         int result = 0;
         this.pstmt = this.conn.prepareStatement(sql);//获取PreparedStatement对象
         this.pstmt.setInt(1, forumId);

@@ -29,6 +29,7 @@
                             password : $('#password').val(),
                             identity : str.toString()
                         },
+
                         dataType : 'json',
                         success : function (result){
                             alert("上传成功")
@@ -122,9 +123,9 @@
 <body>
 <form>
     <h1 style="text-align: center;color: black;" class="a">博客注册</h1>
-    <p>账号:<input name="id" type="text" class="id" id="id"><label id="id_trip"></label></p>
+    <p>账　号:<input name="id" type="text" class="id" id="id"><label id="id_trip"></label></p>
     <p>用户名:<input name="username" type="text" class="id" id="username"><label id="username_trip"></label></p>
-    <p>密码:<input name="password" type="password" class="userpa" id="password"><label id="password_trip"></label></p>
+    <p>密　码:<input name="password" type="password" class="userpa" id="password"><label id="password_trip"></label></p>
     <p id="verification"></p>
     <div style="text-align: center">
         <input type="radio" id="st" name="from" value="用户" checked>用户

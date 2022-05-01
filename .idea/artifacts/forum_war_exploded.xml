@@ -5,12 +5,13 @@
       <element id="javaee-facet-resources" facet="forum/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="forum" />
+          <element id="module-output" name="Post_bar" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="json-lib-2.4-jdk15" />
         </element>
       </element>
+      <element id="javaee-facet-resources" facet="Post_bar/web/Web" />
     </root>
   </artifact>
 </component>
