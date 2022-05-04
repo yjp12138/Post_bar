@@ -1,0 +1,48 @@
+#background{
+    background-color: #444444;
+}
+.boxinfo{
+    width: 110px;
+    border: 1px solid #643519;
+    display:none;
+    position:absolute;
+    color:#643519;
+    padding:0;
+}
+.boxinfo li{
+    color: #e2dddd;
+    cursor: pointer;
+    font-size:13px;
+    width:100%;
+    text-align: center;
+}
+.boxinfo li:hover{
+    background:#f2f2f2;
+    color:#000;
+}
+ul {
+    margin: 0;
+    padding: 0;
+    background-color: #444;
+    text-align: right;
+}
+ul li {
+    display: inline-block;
+}
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 16px;
+    text-decoration: none;
+}
+li a:hover {
+    background-color: #888;
+}
+
+.search input{
+    width: 30%;
+    height: 64px;
+    margin-top: 50px;
+}
+
