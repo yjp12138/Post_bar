@@ -1,5 +1,6 @@
 package com.pojo;
 
+import java.sql.Time;
 import java.time.LocalDateTime;
 
 /**
@@ -12,7 +13,7 @@ public class Comment {
     private String id;  //评论者id
     private String comme;  //评论内容
     private String fatherId;  //父评论id
-    private LocalDateTime issuedTime;  //发布时间
+    private Time issuedTime;  //发布时间
 
     public int getCommentId() {
         return commentId;
@@ -54,11 +55,11 @@ public class Comment {
         this.fatherId = fatherId;
     }
 
-    public LocalDateTime getIssuedTime() {
+    public Time getIssuedTime() {
         return issuedTime;
     }
 
-    public void setIssuedTime(LocalDateTime issuedTime) {
+    public void setIssuedTime(Time issuedTime) {
         this.issuedTime = issuedTime;
     }
 }
