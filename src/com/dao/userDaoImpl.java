@@ -36,6 +36,29 @@ public class userDaoImpl implements userDao{
         return false;
     }
 
+    @Override
+    public String search(String id) throws Exception {
+        String sql = "select username from post_bar.user where id = ?";
+        Statement stmt = conn.createStatement();
+        this.pstmt.setString(1, id);
+        rs = stmt.executeQuery(sql);
+        pstmt.close();
+        return rs.getString(1);
+    }
+
+    @Override
+    public int block(String id, String identity) throws Exception {
+        String sql = "update post_bar.user set identity =? where id=?";
+        int result = 0;
+        this.pstmt = this.conn.prepareStatement(sql);
+        this.pstmt.setString(1, identity);
+        this.pstmt.setString(2, id);
+        result = this.pstmt.executeUpdate();
+        this.pstmt.close();
+        return result;
+    }
+
+
 
     @Override
     public boolean addUser(User user) throws Exception {

@@ -17,4 +17,8 @@ public interface userDao {
     public int updateUser(User user) throws Exception;
     //用户登录
     boolean LoginUser(String id, String password, String identity) throws Exception;
+    //查询用户
+    public String search(String id) throws Exception;
+    //是否拉黑用户
+    public int block(String id, String identity) throws Exception;
 }

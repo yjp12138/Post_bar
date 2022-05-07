@@ -1,5 +1,6 @@
 package com.dao;
 
+import com.pojo.Comment;
 import com.pojo.Forum;
 
 import java.sql.Connection;
@@ -21,24 +22,76 @@ public class forumDaoImpl implements forumDao{
     }
 
     @Override
-    public int addForum(Forum forum) throws Exception {
-        String sql = "insert into post_bar.posts(title, content, author) values(?,?,?)";
+    public boolean addForum(Forum forum) throws Exception {
+        String sql = "insert into post_bar.posts(title, content, post_type, author) values(?,?,?,?)";
         int result = 0;
         this.pstmt = this.conn.prepareStatement(sql);//获取PreparedStatement对象
-        this.pstmt.setString(2, forum.getTitle());
-        this.pstmt.setString(3, forum.getContent());
+        this.pstmt.setString(1, forum.getTitle());
+        this.pstmt.setString(2, forum.getContent());
+        this.pstmt.setString(3, forum.getType());
         this.pstmt.setString(4, forum.getAuthor());
         result = this.pstmt.executeUpdate();//执行数据库操作
+        if (result == 1){
+            pstmt.close();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public int deleteForum(int forumId) throws Exception {
+        String sql = "delete from post_bar.posts where post_id = ?";
+        String sql1 = "delete from post_bar.comments where post_id = ?";
+        int result = 0;
+        this.pstmt = this.conn.prepareStatement(sql);//获取PreparedStatement对象
+        this.pstmt.setInt(1, forumId);
+        result = this.pstmt.executeUpdate();//执行数据库操作
+        this.pstmt.close();
+        this.pstmt = this.conn.prepareStatement(sql1);
+        this.pstmt.setInt(1,forumId);
         this.pstmt.close();
         return result;
     }
 
     @Override
-    public int deleteForum(int forumId) throws Exception {
-        String sql = "delete from post_bar.posts where post_id=?";
+    public boolean AddType(String id, String type) throws Exception {
+        String sql = "update post_bar.posts set post_type = ? where post_id = ?";
         int result = 0;
         this.pstmt = this.conn.prepareStatement(sql);//获取PreparedStatement对象
-        this.pstmt.setInt(1, forumId);
+        this.pstmt.setString(1, type);
+        this.pstmt.setString(2, id);
+        result = this.pstmt.executeUpdate();//执行数据库操作
+        if (result == 1){
+            pstmt.close();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean addComment(Comment comment) throws Exception {
+        String sql = "insert into post_bar.comments(post_id, id, comme, father_id) values(?,?,?,?)";
+        int result = 0;
+        this.pstmt = this.conn.prepareStatement(sql);//获取PreparedStatement对象
+        this.pstmt.setInt(1, comment.getForumId());
+        this.pstmt.setString(2, comment.getId());
+        this.pstmt.setString(3, comment.getComme());
+        this.pstmt.setString(4, comment.getFatherId());
+        result = this.pstmt.executeUpdate();//执行数据库操作
+        if (result == 1){
+            pstmt.close();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public int deleteComment(int commentId) throws Exception {
+        String sql = "delete from post_bar.comments where comme_id = ? or father_id = ?";
+        int result = 0;
+        this.pstmt = this.conn.prepareStatement(sql);//获取PreparedStatement对象
+        this.pstmt.setInt(1, commentId);
+        this.pstmt.setInt(2, commentId);
         result = this.pstmt.executeUpdate();//执行数据库操作
         this.pstmt.close();
         return result;

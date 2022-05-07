@@ -11,6 +11,7 @@ public class Forum {
     private String title;
     private String content;
     private String author;
+    private String type;
     private LocalDateTime issuedTime;
 
     public int getForumId() {
@@ -51,5 +52,13 @@ public class Forum {
 
     public void setIssuedTime(LocalDateTime issuedTime) {
         this.issuedTime = issuedTime;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
