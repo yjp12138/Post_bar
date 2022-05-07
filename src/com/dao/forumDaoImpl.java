@@ -99,9 +99,9 @@ public class forumDaoImpl implements forumDao{
         int count=0;
         List<Forum> forumList = new ArrayList<>();
         Map<String, String> map = new HashMap<>();
-        map.put("Author",forum.getAuthor());
-        map.put("Title",forum.getTitle());
-        map.put("Type", forum.getType());
+        map.put("author",forum.getAuthor());
+        map.put("title",forum.getTitle());
+        map.put("type", forum.getType());
         for (String key : map.keySet()) {
             String val = map.get(key);
             if (!val.equals("")) {
