@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="css/Manage.css">
+    <script>
+        $(document).ready(function (){
+            $('.input').focus(function (){
+                $(this).val('');
+            });
+            $('.find').hover(function (){
+                $('.find_key').show();
+            },function (){
+                $('.find_key').hide();
+            });
+            $('.find_key').hover(function (){
+                $(this).show();
+                $('ul li').each(function (){
+                    $(this).click(function (){
+                        var name = $(this).text();
+                        $('.find').text(name);
+                    });
+                })
+            },function (){
+                $(this).hide();
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="manage_info">
+        <div class="info">
+            <div class="find_key_head">
+                <span class="find">关键词</span>
+                <ul class="find_key">
+                    <li style="list-style-type: none" id="name">姓名</li>
+                    <li style="list-style-type: none" id="title">标题</li>
+                    <li style="list-style-type: none" id="data">日期</li>
+                    <li style="list-style-type: none" id="all">所有</li>
+                </ul>
+            </div>
+            <input type="text" class="input" value="请输入检索内容">
+            <button id="find_info">搜索</button>
+        </div>
+    </div>
+    <div class="user_info">
+        <div id="user1" class="user1" >
+            <div class="left" style="float: left">
+                <img src="picture/20191227115031789.jpg" alt="" style="width: 100px;height: 100px;">
+            </div>
+            <div class="middle">
+                <ul style="float: left">
+                    <li style="list-style-type: none;font-size: 15px">王某某</li>
+                    <li style="list-style-type: none;font-size: 15px">创建时间：2022年10月10号</li>
+                    <li style="list-style-type: none;font-size: 15px">关注：10</li>
+                    <li style="list-style-type: none;font-size: 15px">关注：10</li>
+                </ul>
+                <span style="margin-left: 100px">封号状态：</span>
+                <span>正常</span>
+            </div>
+            <div class="right" style="float: right">
+                <button id="user_do_1"  class="user_do" style="height: 20px;padding: 0px">封号</button>
+                <hr style="list-style: none">
+                <button id="user_un_1" class="user_un" style="height: 20px;padding: 0px">解封</button>
+            </div>
+        </div>
+        <div id="user2" class="user2" >
+            <div class="left" style="float: left">
+                <img src="picture/20191227115031789.jpg" alt="" style="width: 100px;height: 100px;">
+            </div>
+            <div class="middle">
+                <ul style="float: left">
+                    <li style="list-style-type: none;font-size: 15px">王某某</li>
+                    <li style="list-style-type: none;font-size: 15px">创建时间：2022年10月10号</li>
+                    <li style="list-style-type: none;font-size: 15px">关注：10</li>
+                    <li style="list-style-type: none;font-size: 15px">关注：10</li>
+                </ul>
+                <span style="margin-left: 100px">封号状态：</span>
+                <span>正常</span>
+            </div>
+            <div class="right" style="float: right">
+                <button id="user_do_2"  class="user_do" style="height: 20px;padding: 0px">封号</button>
+                <hr style="list-style: none">
+                <button id="user_un_2" class="user_un" style="height: 20px;padding: 0px">解封</button>
+            </div>
+        </div>
+        <div id="user3" class="user3">
+            <div class="left" style="float: left">
+                <img src="picture/20191227115031789.jpg" alt="" style="width: 100px;height: 100px;">
+            </div>
+            <div class="middle">
+                <ul style="float: left">
+                    <li style="list-style-type: none;font-size: 15px">王某某</li>
+                    <li style="list-style-type: none;font-size: 15px">创建时间：2022年10月10号</li>
+                    <li style="list-style-type: none;font-size: 15px">关注：10</li>
+                    <li style="list-style-type: none;font-size: 15px">关注：10</li>
+                </ul>
+                <span style="margin-left: 100px">封号状态：</span>
+                <span>正常</span>
+            </div>
+            <div class="right" style="float: right">
+                <button id="user_do_3"  class="user_do" style="height: 20px;padding: 0px">封号</button>
+                <hr style="list-style: none">
+                <button id="user_un_3" class="user_un" style="height: 20px;padding: 0px">解封</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
