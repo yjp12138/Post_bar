@@ -118,7 +118,7 @@ public class forumDaoImpl implements forumDao{
         for (String key : map.keySet()) {
             String val = map.get(key);
             if (!(val == null)&& count!=0) {
-                sql+=key+"="+"'"+val +"'";
+                sql+=key+" like"+"'%"+val +"%'";
                 count--;
                 if (count!=0){
                     sql+= " AND ";

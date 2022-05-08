@@ -56,7 +56,7 @@ class forumDaoImplTest {
     void findInfoBY() throws Exception {
         List<Forum> forumList = new ArrayList<>();
         Forum forum = new Forum();
-        forum.setAuthor("123");
+        forum.setAuthor("12");
         System.out.println(xxx.FindInfoBY(forum).get(1).getIssuedTime());
     }
 
