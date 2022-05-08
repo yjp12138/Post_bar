@@ -27,7 +27,7 @@ public class commentServlet extends HttpServlet {
         comment.setForumId(Integer.parseInt(request.getParameter("forumId")));
         comment.setId(request.getParameter("id"));
         comment.setComme(request.getParameter("comme"));
-        comment.setFatherId(request.getParameter("fatherId"));
+        comment.setFatherId(Integer.parseInt(request.getParameter("fatherId")));
         try {
             Connection conn = DBUtil.getConnection();
             forumDaoImpl forumDaoImpl = new forumDaoImpl(conn);

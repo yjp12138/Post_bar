@@ -16,7 +16,7 @@ public interface forumDao {
     //删除指定论文
     public int deleteForum(int forumId) throws Exception;
     //添加类别
-    public boolean AddType(String id, String type) throws Exception;
+    public boolean addType(Integer id, String type) throws Exception;
     //查询所有文章
     List<Forum> FindInfoAll() throws Exception;
     //搜索文章

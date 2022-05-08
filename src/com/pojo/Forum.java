@@ -1,6 +1,7 @@
 package com.pojo;
 
-import java.sql.Time;
+import java.util.Date;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
@@ -13,7 +14,7 @@ public class Forum {
     private String content;
     private String author;
     private String type;
-    private Time issuedTime;
+    private Timestamp issuedTime;
 
     public int getForumId() {
         return forumId;
@@ -47,11 +48,11 @@ public class Forum {
         this.author = author;
     }
 
-    public Time getIssuedTime() {
+    public Timestamp getIssuedTime() {
         return issuedTime;
     }
 
-    public void setIssuedTime(Time issuedTime) {
+    public void setIssuedTime(Timestamp issuedTime) {
         this.issuedTime = issuedTime;
     }
 

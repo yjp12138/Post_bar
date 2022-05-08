@@ -2,12 +2,11 @@ package com.dao;
 
 import com.pojo.Comment;
 import com.pojo.Forum;
-
+import java.sql.Timestamp;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,26 +44,30 @@ public class forumDaoImpl implements forumDao{
 
     @Override
     public int deleteForum(int forumId) throws Exception {
-        String sql = "delete from post_bar.posts where post_id = ?";
-        String sql1 = "delete from post_bar.comments where post_id = ?";
         int result = 0;
-        this.pstmt = this.conn.prepareStatement(sql);//获取PreparedStatement对象
-        this.pstmt.setInt(1, forumId);
-        result = this.pstmt.executeUpdate();//执行数据库操作
-        this.pstmt.close();
-        this.pstmt = this.conn.prepareStatement(sql1);
-        this.pstmt.setInt(1,forumId);
-        this.pstmt.close();
+        try {
+            String sql = "delete from post_bar.posts where post_id = ?";
+            String sql1 = "delete from post_bar.comments where post_id = ?";
+            this.pstmt = this.conn.prepareStatement(sql);//获取PreparedStatement对象
+            this.pstmt.setInt(1, forumId);
+            result = this.pstmt.executeUpdate();//执行数据库操作
+            this.pstmt = this.conn.prepareStatement(sql1);
+            this.pstmt.setInt(1,forumId);
+            this.pstmt.close();
+
+        } catch (Exception e) {
+            System.out.println("error");
+        }
         return result;
     }
 
     @Override
-    public boolean AddType(String id, String type) throws Exception {
+    public boolean addType(Integer id, String type) throws Exception {
         String sql = "update post_bar.posts set post_type = ? where post_id = ?";
         int result = 0;
         this.pstmt = this.conn.prepareStatement(sql);//获取PreparedStatement对象
         this.pstmt.setString(1, type);
-        this.pstmt.setString(2, id);
+        this.pstmt.setInt(2, id);
         result = this.pstmt.executeUpdate();//执行数据库操作
         if (result == 1){
             pstmt.close();
@@ -77,8 +80,8 @@ public class forumDaoImpl implements forumDao{
     public List<Forum> FindInfoAll() throws Exception {
         List<Forum> forumList = new ArrayList<>();
         String sql = "SELECT * FROM post_bar.posts";
-        PreparedStatement stmt = conn.prepareStatement(sql);
-        ResultSet rs = stmt.executeQuery();
+        this.pstmt = this.conn.prepareStatement(sql);
+        rs = pstmt.executeQuery();
         while(rs.next()){
             Forum uu = new Forum();
             uu.setForumId(rs.getInt(1));
@@ -86,11 +89,11 @@ public class forumDaoImpl implements forumDao{
             uu.setContent(rs.getString(3));
             uu.setType(rs.getString(4));
             uu.setAuthor(rs.getString(5));
-            uu.setIssuedTime(rs.getTime(6));
+            uu.setIssuedTime(rs.getTimestamp(6));
             forumList.add(uu);
         }
         rs.close();
-        stmt.close();
+        pstmt.close();
         return forumList;
     }
 
@@ -104,7 +107,7 @@ public class forumDaoImpl implements forumDao{
         map.put("type", forum.getType());
         for (String key : map.keySet()) {
             String val = map.get(key);
-            if (!val.equals("")) {
+            if (!(val == null)) {
                 count++;
             }
         }
@@ -114,7 +117,7 @@ public class forumDaoImpl implements forumDao{
         }
         for (String key : map.keySet()) {
             String val = map.get(key);
-            if (!val.equals("")&& count!=0) {
+            if (!(val == null)&& count!=0) {
                 sql+=key+"="+"'"+val +"'";
                 count--;
                 if (count!=0){
@@ -122,8 +125,8 @@ public class forumDaoImpl implements forumDao{
                 }
             }
         }
-        Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery(sql);
+        this.pstmt = this.conn.prepareStatement(sql);
+        rs = pstmt.executeQuery();
         while(rs.next()){
             Forum uu = new Forum();
             uu.setForumId(rs.getInt(1));
@@ -131,10 +134,10 @@ public class forumDaoImpl implements forumDao{
             uu.setContent(rs.getString(3));
             uu.setType(rs.getString(4));
             uu.setAuthor(rs.getString(5));
-            uu.setIssuedTime(rs.getTime(6));
+            uu.setIssuedTime(rs.getTimestamp(6));
             forumList.add(uu);
         }
-        stmt.close();
+        pstmt.close();
         rs.close();
         return forumList;
     }
@@ -147,7 +150,7 @@ public class forumDaoImpl implements forumDao{
         this.pstmt.setInt(1, comment.getForumId());
         this.pstmt.setString(2, comment.getId());
         this.pstmt.setString(3, comment.getComme());
-        this.pstmt.setString(4, comment.getFatherId());
+        this.pstmt.setInt(4, comment.getFatherId());
         result = this.pstmt.executeUpdate();//执行数据库操作
         if (result == 1){
             pstmt.close();
@@ -176,15 +179,15 @@ public class forumDaoImpl implements forumDao{
         int result = 0;
         this.pstmt = this.conn.prepareStatement(sql);//获取PreparedStatement对象
         this.pstmt.setInt(1, formId);
-        rs = pstmt.executeQuery(sql);
+        rs = pstmt.executeQuery();
         while(rs.next()){
             Comment uu = new Comment();
             uu.setCommentId(rs.getInt(1));
             uu.setForumId(rs.getInt(2));
             uu.setId(rs.getString(3));
             uu.setComme(rs.getString(4));
-            uu.setFatherId(rs.getString(5));
-            uu.setIssuedTime(rs.getTime(6));
+            uu.setFatherId(rs.getInt(5));
+            uu.setIssuedTime(rs.getTimestamp(6));
             commentList.add(uu);
         }
         pstmt.close();

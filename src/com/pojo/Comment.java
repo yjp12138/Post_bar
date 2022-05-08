@@ -1,6 +1,7 @@
 package com.pojo;
 
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
@@ -8,26 +9,26 @@ import java.time.LocalDateTime;
  * @Date : 2022/5/6 22:04
  */
 public class Comment {
-    private int commentId; //评论id
-    private int forumId;  //帖子号
+    private Integer commentId; //评论id
+    private Integer forumId;  //帖子号
     private String id;  //评论者id
     private String comme;  //评论内容
-    private String fatherId;  //父评论id
-    private Time issuedTime;  //发布时间
+    private Integer fatherId;  //父评论id
+    private Timestamp issuedTime;  //发布时间
 
-    public int getCommentId() {
+    public Integer getCommentId() {
         return commentId;
     }
 
-    public void setCommentId(int commentId) {
+    public void setCommentId(Integer commentId) {
         this.commentId = commentId;
     }
 
-    public int getForumId() {
+    public Integer getForumId() {
         return forumId;
     }
 
-    public void setForumId(int forumId) {
+    public void setForumId(Integer forumId) {
         this.forumId = forumId;
     }
 
@@ -47,19 +48,19 @@ public class Comment {
         this.comme = comme;
     }
 
-    public String getFatherId() {
+    public Integer getFatherId() {
         return fatherId;
     }
 
-    public void setFatherId(String fatherId) {
+    public void setFatherId(Integer fatherId) {
         this.fatherId = fatherId;
     }
 
-    public Time getIssuedTime() {
+    public Timestamp getIssuedTime() {
         return issuedTime;
     }
 
-    public void setIssuedTime(Time issuedTime) {
+    public void setIssuedTime(Timestamp issuedTime) {
         this.issuedTime = issuedTime;
     }
 }

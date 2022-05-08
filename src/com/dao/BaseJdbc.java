@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 
 public class BaseJdbc {
     private static final String Driver = "com.mysql.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://localhost:3306/post_bar";
+    private static final String URL = "jdbc:mysql://localhost:3306/post_bar?serverTimezone=GMT%2B8\"";
     private static final String USER = "root";
     private static final String PASSWORD = "123456";
     private Connection conn = null;
