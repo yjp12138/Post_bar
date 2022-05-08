@@ -56,7 +56,7 @@ public class forumServlet extends HttpServlet {
                 oo.flush();
                 oo.close();
             }else{
-                response.sendError(500);
+                System.out.println("未找到该数据");
             }
         } catch (Exception e) {
             e.printStackTrace();
