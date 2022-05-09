@@ -1,24 +1,21 @@
 package com.Servlet; /**
  * @Author : yjp
- * @Date : 2022/4/18 20:17
+ * @Date : 2022/5/8 19:11
  */
 
 import com.dao.userDaoImpl;
 import com.google.gson.Gson;
 import com.pojo.User;
-
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
 
-@WebServlet(name = "registerServlet", value = "/registerServlet")
-public class registerServlet extends HttpServlet {
+@WebServlet(name = "modifyServlet", value = "/modifyServlet")
+public class modifyServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = new User();
@@ -29,36 +26,37 @@ public class registerServlet extends HttpServlet {
         try {
             Connection conn = DBUtil.getConnection();
             userDaoImpl userDaoImpl = new userDaoImpl(conn);
-            userDaoImpl.block(user.getId(), user.getUsername());
-            PrintWriter oo = response.getWriter();
-            response.setCharacterEncoding("utf-8");
-            oo.print(new Gson().toJson("上传成功！"));
-            oo.flush();
-            oo.close();
+            if ((userDaoImpl.updateUser(user) >= 0)) {
+                PrintWriter oo = response.getWriter();
+                request.setCharacterEncoding("UTF-8");
+                response.setContentType("text/html;charset=utf-8");
+                oo.print(new Gson().toJson("操作成功！"));
+                oo.flush();
+                oo.close();
+            } else {
+                System.out.println("未找到该数据");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = new User();
-        user.setId(request.getParameter("id"));
-        user.setUsername(request.getParameter("username"));
-        user.setPassword(request.getParameter("password"));
-        user.setIdentity(request.getParameter("identity"));
+        String id = request.getParameter("id");
+        String identity = request.getParameter("username");
         try {
             Connection conn = DBUtil.getConnection();
             userDaoImpl userDaoImpl = new userDaoImpl(conn);
-            if (userDaoImpl.addUser(user)){
+            if (userDaoImpl.block(id, identity)) {
                 PrintWriter oo = response.getWriter();
-                response.setCharacterEncoding("utf-8");
-                oo.print(new Gson().toJson("上传成功！"));
+                request.setCharacterEncoding("UTF-8");
+                response.setContentType("text/html;charset=utf-8");
+                oo.print(new Gson().toJson("操作成功！"));
                 oo.flush();
                 oo.close();
-            }else{
-                response.sendError(500);
+            } else {
+                System.out.println("未找到该数据");
             }
         } catch (Exception e) {
             e.printStackTrace();

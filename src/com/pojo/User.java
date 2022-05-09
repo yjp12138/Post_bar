@@ -9,6 +9,7 @@ public class User {
     private String password;
     private String username;
     private String identity;
+    private String repassword;
 
     public String getId() {
         return id;
@@ -40,5 +41,13 @@ public class User {
 
     public void setIdentity(String identity) {
         this.identity = identity;
+    }
+
+    public String getRepassword() {
+        return repassword;
+    }
+
+    public void setRepassword(String repassword) {
+        this.repassword = repassword;
     }
 }

@@ -49,7 +49,7 @@ public class forumServlet extends HttpServlet {
         try {
             Connection conn = DBUtil.getConnection();
             forumDaoImpl forumDaoImpl = new forumDaoImpl(conn);
-            if (forumDaoImpl.deleteForum(Integer.parseInt(request.getParameter("forumId"))) != 0){
+            if (forumDaoImpl.deleteForum(Integer.parseInt(request.getParameter("forumId"))) >= 0){
                 PrintWriter oo = response.getWriter();
                 response.setCharacterEncoding("utf-8");
                 oo.print(new Gson().toJson("删除成功！"));

@@ -21,6 +21,11 @@ class userDaoImplTest {
 
     @Test
     void block() throws Exception {
-        System.out.println(xxx.block("001", "黑户"));
+        System.out.println(xxx.block("001", "用户"));
+    }
+
+    @Test
+    void search() throws Exception {
+        System.out.println(xxx.search("002"));
     }
 }

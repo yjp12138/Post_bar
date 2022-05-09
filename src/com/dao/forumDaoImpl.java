@@ -104,7 +104,7 @@ public class forumDaoImpl implements forumDao{
         Map<String, String> map = new HashMap<>();
         map.put("author",forum.getAuthor());
         map.put("title",forum.getTitle());
-        map.put("type", forum.getType());
+        map.put("post_type", forum.getType());
         for (String key : map.keySet()) {
             String val = map.get(key);
             if (!(val == null)) {
@@ -121,7 +121,7 @@ public class forumDaoImpl implements forumDao{
                 sql+=key+" like"+"'%"+val +"%'";
                 count--;
                 if (count!=0){
-                    sql+= " AND ";
+                    sql+= " OR ";
                 }
             }
         }

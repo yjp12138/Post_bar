@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class DBUtil {
     public static Connection getConnection() throws ClassNotFoundException, SQLException{
         Class.forName("com.mysql.cj.jdbc.Driver");
-        String url = "jdbc:mysql://localhost:3306/post_bar?serverTimezone=GMT%2B8";
+        String url = "jdbc:mysql://localhost:3306/post_bar?";
         Connection conn = DriverManager.getConnection(url, "root", "123456");
         return conn;
     };

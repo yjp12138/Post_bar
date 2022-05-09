@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>发布页面</title>
+    <script type="text/javascript" src="./js/jquery-3.3.1.js"></script>
+    <script>
+        $(document).ready(function (){
+            let str = "";
+            $('#sure').click(function(){
+
+                var is_ok = true;
+                $(':text').each(function (i,e){
+                    if($(e).val() === ''){
+                        is_ok = false;
+                    }
+                });
+                if (is_ok){
+                    $.ajax({
+                        type : 'get',
+                        url : 'forumServlet',
+                        data : {
+                            id : $('#id').val(),
+                            title : $('#title').val(),
+                            content : $('#content').val()
+                        },
+
+                        dataType : 'json',
+                        success : function (result){
+                            alert("上传成功")
+                            setTimeout(function (){
+                                window.location.href = "homePage.html.html";
+                            },3000);
+                        },
+                        error :function (e){
+                            alert("上传出错")
+                        }
+                    });
+                }else {
+                    alert("有空未填！")
+                }
+            });
+        });
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            background-color: lightgray;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            -moz-background-size: 100% 100%;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        #id_trip {
+            margin-left: 50px;
+            color: red;
+        }
+
+        p {
+            margin-top: 30px;
+            margin-left: 20px;
+            color: black;
+        }
+
+        .id {
+            margin-left: 15px;
+            border-radius: 5px;
+            border-style: hidden;
+            height: 30px;
+            width: 300px;
+            outline: none;
+            color: #3c3e41;
+            padding-left: 10px;
+        }
+        .userpa {
+            margin-left: 15px;
+            border-radius: 5px;
+            border-style: hidden;
+            height: 30px;
+            width: 300px;
+            outline: none;
+            color: #3c3e41;
+            padding-left: 10px;
+        }
+
+        .a {
+            font-family: "KaiTi";
+        }
+
+        .button {
+            border-color: cornsilk;
+            color: aliceblue;
+            background-color: lightskyblue;
+            border-style: hidden;
+            border-radius: 5px;
+            width: 100px;
+            height: 31px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+<form>
+    <h1 style="text-align: center;color: black;" class="a">发表帖子</h1>
+    <p>账　号:<input name="id" type="text" class="id" id="id"><label id="id_trip"></label></p>
+    <p>标　题:<input name="title" type="text" class="id" id="title"><label id="username_trip"></label></p>
+    <p>内　容:<textarea  name="content" type="text" class="userpa" id="content"></textarea >
+    <p id="verification"></p>
+    <div style="text-align: center">
+        <br>
+        <input type="button" id="sure" name="sure" value="提交" class="button" onmouseover="this.style.backgroundColor='blue'" onmouseout="this.style.backgroundColor='lightskyblue'">
+        <input type="reset" id="resub" name="rein"  class="button" value="重置" onmouseover="this.style.backgroundColor='blue'" onmouseout="this.style.backgroundColor='lightskyblue'">
+    </div></form>
+</body>
+</html>

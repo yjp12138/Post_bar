@@ -6,9 +6,14 @@
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="Post_bar" />
+          <element id="module-output" name="forum" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="json-lib-2.4-jdk15" />
+          <element id="file-copy" path="F:/apache-tomcat-9.0.62/lib/servlet-api.jar" />
+          <element id="library" level="project" name="lib" />
+          <element id="library" level="module" name="JUnit4" module-name="forum" />
+          <element id="library" level="module" name="JUnit5.7.0" module-name="forum" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="Post_bar/web/Web" />

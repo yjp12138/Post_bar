@@ -1,11 +1,14 @@
 package com.dao;
 
+import com.pojo.Forum;
 import com.pojo.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author : yjp
@@ -38,26 +41,52 @@ public class userDaoImpl implements userDao{
 
     @Override
     public String search(String id) throws Exception {
-        String sql = "select username from post_bar.user where id = ?";
-        Statement stmt = conn.createStatement();
-        this.pstmt.setString(1, id);
-        rs = stmt.executeQuery(sql);
+        String a;
+        String sql = "select username from post_bar.user where id = "+ id;
+        this.pstmt = this.conn.prepareStatement(sql);
+        rs = pstmt.executeQuery();
+        while(rs.next()){
+             a = rs.getString(1);
+            return rs.getString(1);
+        }
+
         pstmt.close();
+        rs.close();
         return rs.getString(1);
     }
 
     @Override
-    public int block(String id, String identity) throws Exception {
+    public boolean block(String id, String identity) throws Exception {
         String sql = "update post_bar.user set identity =? where id=?";
-        int result = 0;
-        this.pstmt = this.conn.prepareStatement(sql);
-        this.pstmt.setString(1, identity);
-        this.pstmt.setString(2, id);
-        result = this.pstmt.executeUpdate();
-        this.pstmt.close();
-        return result;
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setString(1, identity);
+        stmt.setString(2, id);
+        int item = stmt.executeUpdate();
+        stmt.close();
+        if (item == 1){
+            return true;
+        }
+        return false;
     }
 
+    @Override
+    public List<User> findAll() throws Exception {
+        List<User> users = new ArrayList<>();
+        String sql = "SELECT * FROM post_bar.user";
+        this.pstmt = this.conn.prepareStatement(sql);
+        rs = pstmt.executeQuery();
+        while(rs.next()){
+            User uu = new User();
+            uu.setId(rs.getString(1));
+            uu.setPassword(rs.getString(2));
+            uu.setUsername(rs.getString(3));
+            uu.setIdentity(rs.getString(4));
+            users.add(uu);
+        }
+        rs.close();
+        pstmt.close();
+        return users;
+    }
 
 
     @Override
@@ -89,13 +118,13 @@ public class userDaoImpl implements userDao{
 
     @Override
     public int updateUser(User user) throws Exception {
-        String sql = "update post_bar.user set username =? where id=?";
+        String sql = "update post_bar.user set username =?where id=?";
         int result = 0;
         this.pstmt = this.conn.prepareStatement(sql);
-        this.pstmt.setString(3, user.getUsername());
-        this.pstmt.setString(2, user.getPassword());
-        result = this.pstmt.executeUpdate();
-        this.pstmt.close();
+        this.pstmt.setString(1, user.getUsername());
+        this.pstmt.setString(2, user.getId());
+        result = pstmt.executeUpdate();
+        pstmt.close();
         return result;
     }
 }

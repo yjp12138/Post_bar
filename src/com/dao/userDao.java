@@ -1,7 +1,9 @@
 package com.dao;
 
+import com.pojo.Forum;
 import com.pojo.User;
 
+import java.util.List;
 import java.util.Vector;
 
 /**
@@ -20,5 +22,7 @@ public interface userDao {
     //查询用户
     public String search(String id) throws Exception;
     //是否拉黑用户
-    public int block(String id, String identity) throws Exception;
+    public boolean block(String id, String identity) throws Exception;
+    //查询所有用户
+    List<User> findAll() throws Exception;
 }
