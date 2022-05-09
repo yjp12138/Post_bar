@@ -15,6 +15,8 @@ public class Comment {
     private String comme;  //评论内容
     private Integer fatherId;  //父评论id
     private Timestamp issuedTime;  //发布时间
+    private String title;
+    private String username;
 
     public Integer getCommentId() {
         return commentId;
@@ -62,5 +64,21 @@ public class Comment {
 
     public void setIssuedTime(Timestamp issuedTime) {
         this.issuedTime = issuedTime;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

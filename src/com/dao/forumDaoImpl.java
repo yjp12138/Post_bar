@@ -46,14 +46,18 @@ public class forumDaoImpl implements forumDao{
     public int deleteForum(int forumId) throws Exception {
         int result = 0;
         try {
-            String sql = "delete from post_bar.posts where post_id = ?";
-            String sql1 = "delete from post_bar.comments where post_id = ?";
+            String sql = "DELETE post_bar.posts, post_bar.comments FROM post_bar.posts, post_bar.comments WHERE post_bar.posts.post_id = post_bar.comments.post_id AND post_bar.posts.post_id = ?";
             this.pstmt = this.conn.prepareStatement(sql);//获取PreparedStatement对象
             this.pstmt.setInt(1, forumId);
             result = this.pstmt.executeUpdate();//执行数据库操作
-            this.pstmt = this.conn.prepareStatement(sql1);
-            this.pstmt.setInt(1,forumId);
             this.pstmt.close();
+            if (result == 0 ) {
+                sql = "delete from post_bar.posts where post_id = ?";
+                this.pstmt = this.conn.prepareStatement(sql);//获取PreparedStatement对象
+                this.pstmt.setInt(1, forumId);
+                result = this.pstmt.executeUpdate();//执行数据库操作
+                this.pstmt.close();
+            }
 
         } catch (Exception e) {
             System.out.println("error");

@@ -9,6 +9,9 @@
     position: relative;
 }
 
+.like{ font-size:66px;  color:#ccc; cursor:pointer;}
+.cs{color:#f00;}
+
 .userinfo_left {
     position: relative;
     width: 190px;

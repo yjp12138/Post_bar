@@ -27,36 +27,123 @@
                 $(this).hide();
             });
         });
-        $.ajax({
-            type : 'get',
-            url : '/forum_war_exploded/Query',
-            dataType: 'json',
-            success : function (result){
-                $("#showDiv").empty();
-                $("#showDiv").append("<tr><th align=\"center\">贴　号</th><th align=\"center\">标　题</th><th align=\"center\">类　型</th><th align=\"center\">作　者</th><th align=\"center\">发布时间</th></tr>");
-                for(var i=0;i<result.length;i++)
-                {
-                    $("#showDiv").append("<tr style='text-align: center'><td>"+result[i].forumId+"</td><td><a href='selfPage.html'>"+result[i].title+"</a></td><td>"+result[i].type+"</td><td>"+result[i].author+"</td><td>"+result[i].issuedTime+"</td></tr>");
-                }
-            },
-            error :function (e){
-            }
-        });
-        $.ajax({
-            type : 'get',
-            url : '/forum_war_exploded/FindUsersServlet',
-            dataType: 'json',
-            success : function (result){
-                $("#adc").empty();
-                $("#adc").append("<tr><th align=\"center\">账　号</th><th align=\"center\">用户名</th></tr>");
-                for(var i=0;i<result.length;i++)
-                {
-                    $("#adc").append("<tr style='text-align: center'><td>"+result[i].id+"</td><td>"+result[i].username+"</td></tr>");
-                }
-            },
-            error :function (e){
+        $(document).ready(function () {
+            $('#dotype').click(function () {
 
-            }
+                $.ajax({
+                    type: 'get',
+                    url: '/forum_war_exploded/Servlet',
+                    data: {
+                        id: $('#id').val(),
+                        type: $('#type').val()
+                    },
+
+                    dataType: 'json',
+                    success: function (result) {
+                        alert("上传成功")
+                        setTimeout(function () {
+                            window.location.href = "Manage.html";
+                        }, 3000);
+                    },
+                    error: function (e) {
+                        alert("上传出错")
+                    }
+                });
+            });
+            $('#fh').click(function () {
+
+                $.ajax({
+                    type: 'get',
+                    url: '/forum_war_exploded/ban',
+                    data: {
+                        id: $('#bid').val(),
+                        identity: "黑户"
+                    },
+
+                    dataType: 'json',
+                    success: function (result) {
+                        alert("封号成功")
+                        setTimeout(function () {
+                            window.location.href = "Manage.html";
+                        }, 3000);
+                    },
+                    error: function (e) {
+                        alert("出错了")
+                    }
+                });
+            });
+            $('#jf').click(function () {
+
+                $.ajax({
+                    type: 'get',
+                    url: '/forum_war_exploded/ban',
+                    data: {
+                        id: $('#wid').val(),
+                        identity: "用户"
+                    },
+
+                    dataType: 'json',
+                    success: function (result) {
+                        alert("解封成功")
+                        setTimeout(function () {
+                            window.location.href = "Manage.html";
+                        }, 3000);
+                    },
+                    error: function (e) {
+                        alert("出错了")
+                    }
+                });
+            });
+            $('#delete').click(function () {
+
+                $.ajax({
+                    type: 'post',
+                    url: '/forum_war_exploded/forumServlet',
+                    data: {
+                        forumId: $('#forumId').val(),
+                    },
+
+                    dataType: 'json',
+                    success: function (result) {
+                        alert("删除成功")
+                        setTimeout(function () {
+                            window.location.href = "Manage.html";
+                        }, 3000);
+                    },
+                    error: function (e) {
+                        alert("出错了")
+                    }
+                });
+            });
+            $.ajax({
+                type: 'get',
+                url: '/forum_war_exploded/Query',
+                dataType: 'json',
+                success: function (result) {
+                    $("#showDiv").empty();
+                    $("#showDiv").append("<tr><th align=\"center\">贴　号</th><th align=\"center\">标　题</th><th align=\"center\">类　型</th><th align=\"center\">作　者</th><th align=\"center\">发布时间</th></tr>");
+                    for (var i = 0; i < result.length; i++) {
+                        $("#showDiv").append("<tr style='text-align: center'><td>" + result[i].forumId + "</td><td><a href='aaa.html'>" + result[i].title + "</a></td><td>" + result[i].type + "</td><td>" + result[i].author + "</td><td>" + result[i].issuedTime + "</td></tr>");
+                    }
+                },
+                error: function (e) {
+                }
+            });
+            $.ajax({
+                type: 'get',
+                url: '/forum_war_exploded/FindUsersServlet',
+                dataType: 'json',
+                success: function (result) {
+                    $("#adc").empty();
+                    $("#adc").append("<tr><th align=\"center\">账　号</th><th align=\"center\">用户名</th></tr>");
+                    for (var i = 0; i < result.length; i++) {
+                        $("#adc").append("<tr style='text-align: center'><td>" + result[i].id + "</td><td>" + result[i].username + "</td></tr>");
+                    }
+                },
+                error: function (e) {
+
+                }
+            });
         });
 
 
@@ -78,9 +165,10 @@
             <button id="find_info">搜索</button>
         </div>
     </div>
-    <p>请输入想删除的贴号:<input name="forunId" type="text"><button id="delete">删除</button>
-    <p>请输入想封禁的账号:<input name="id" type="text"><button id="fh">封号</button>
-    <p>请输入想解封的账号:<input name="id" type="text"><button id="jf">解封</button>
+    请输入想添加的类别:<input id="type" type="text" style="width:200px; height:20px;">请输入所选的贴号:<input id="id" style="width:200px; height:20px;" name="type" type="text"><button id="dotype">添加</button>
+    <p>请输入想删除的贴号:<input id="forumId" type="text"><button id="delete">删除</button>
+    <p>请输入想封禁的账号:<input id="bid" type="text"><button id="fh">封号</button>
+    <p>请输入想解封的账号:<input id="wid" type="text"><button id="jf">解封</button>
     <table border="1 "cellpadding="0" cellspacing="0" style="border-collapse:collapse;" width="100%" id="showDiv">
         <tr>
             <th align="center">贴　号</th>

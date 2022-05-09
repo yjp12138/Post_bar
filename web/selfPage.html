@@ -2,23 +2,65 @@
 <html lang="en">
 <head>
     <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="css/selfPage.css">
     <script>
         $(document).ready(function () {
             $('#qqq').click(function () {
                 $.ajax({
                     type : 'post',
                     url : '/forum_war_exploded/Query',
-                    data : {
+                    data: {
                         author : "123"
                     },
                     dataType: 'json',
                     success : function (result){
-                        alert("查询成功")
                         $("#showDiv").empty();
                         $("#showDiv").append("<tr><th align=\"center\">贴　号</th><th align=\"center\">标　题</th><th align=\"center\">类　型</th><th align=\"center\">作　者</th><th align=\"center\">发布时间</th></tr>");
                         for(var i=0;i<result.length;i++)
                         {
-                            $("#showDiv").append("<tr style='text-align: center'><td>"+result[i].forumId+"</td><td><a href='selfPage.html'>"+result[i].title+"</a></td><td>"+result[i].type+"</td><td>"+result[i].author+"</td><td>"+result[i].issuedTime+"</td></tr>");
+                            $("#showDiv").append("<tr style='text-align: center'><td>"+result[i].forumId+"</td><td><a href='aaa.html'>"+result[i].title+"</a></td><td>"+result[i].type+"</td><td>"+result[i].author+"</td><td>"+result[i].issuedTime+"</td></tr>");
+                        }
+                    },
+                    error :function (e){
+                        alert("查询空错误！")
+                    }
+                });
+            });
+            $('#aaa').click(function () {
+                $.ajax({
+                    type : 'post',
+                    url : '/forum_war_exploded/FindComments',
+                    data: {
+                        id : "001"
+                    },
+                    dataType: 'json',
+                    success : function (result){
+                        $("#showDiv").empty();
+                        $("#showDiv").append("<tr><th align=\"center\">标　题</th><th align=\"center\">回　复</th><th align=\"center\">发布时间</th></tr>");
+                        for(var i=0;i<result.length;i++)
+                        {
+                            $("#showDiv").append("<tr style='text-align: center'><td><a href='aaa.html'>"+result[i].title+"</a></td><td>"+result[i].comme+"</td><<td>"+result[i].issuedTime+"</td></tr>");
+                        }
+                    },
+                    error :function (e){
+                        alert("查询空错误！")
+                    }
+                });
+            });
+            $('#zzz').click(function () {
+                $.ajax({
+                    type : 'post',
+                    url : '/forum_war_exploded/FindUsersServlet',
+                    data: {
+                        id : "001"
+                    },
+                    dataType: 'json',
+                    success : function (result){
+                        $("#showDiv").empty();
+                        $("#showDiv").append("<tr><th align=\"center\">标　题</th><th align=\"center\">ID</th><th align=\"center\">用户名</th><th align=\"center\">回　复</th><th align=\"center\">发布时间</th></tr>");
+                        for(var i=0;i<result.length;i++)
+                        {
+                            $("#showDiv").append("<tr style='text-align: center'><td><a href='aaa.html'>"+result[i].title+"</a></td><td>"+result[i].id+"</td><td>"+result[i].username+"</td><td>"+result[i].comme+"</td><<td>"+result[i].issuedTime+"</td></tr>");
                         }
                     },
                     error :function (e){
@@ -29,25 +71,41 @@
         });
         $(document).ready(function() {
             $('#delete').click(function () {
+
                 $.ajax({
-                    type: "post",
-                    url: "/forum_war_exploded/forumServlet",
+                    type: 'post',
+                    url: '/forum_war_exploded/forumServlet',
                     data: {
-                        forumId: $('#id').val()
+                        forumId: $('#forumId').val(),
                     },
-                    dataType: "json",/*前后端交互的类型*/
+
+                    dataType: 'json',
                     success: function (result) {
-                        alert("删除成功！");
+                        alert("删除成功")
+                        setTimeout(function () {
+                            window.location.href = "Manage.html";
+                        }, 3000);
                     },
                     error: function (e) {
-                        alert("删除失败！");
+                        alert("出错了")
                     }
                 });
+            });
+            $.ajax({
+                type: 'get',
+                url: '/forum_war_exploded/FindUsersServlet',
+                dataType: 'json',
+                success: function (result) {
+                document.getElementById("qaq").innerText = "用户名:　"+ result[0].username;
+                },
+                error: function (e) {
+
+                }
             });
         });
     </script>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>个人主页</title>
     <link rel="stylesheet" href="css/selfPage.css">
 </head>
 <body>
@@ -74,16 +132,15 @@
             <div class="userinfo_num">
                 <div class="userinfo_userdata">
                     <span class="userinfo_sex userinfo_sex_male"></span>
-                    <span class="user_name">
-                        用户名:QAQ
+                    <span class="user_name" id="qaq">
                     </span>
                 </div>
             </div>
         </div>
         <div class="userinfo_right">
             <div class="userinfo_shortcut">
-                <a href="">发表帖子</a>
-                <a href="http://localhost:63342/Post_bar/forum/web/homePage.html">首页贴吧</a>
+                <a href="posting.html">发表帖子</a>
+                <a href="homePage.html">首页贴吧</a>
             </div>
         </div>
     </div>
@@ -92,19 +149,16 @@
             <ul class="ihome_nav_list">
                 <li class="focus">
                 <button id="qqq">我的帖子</button>
+                <button id="aaa">我回复的</button>
+                <button id="zzz">回复我的</button>
             </ul>
         </div>
-        <p>请输入想删除的贴号:<input name="id" type="text">
-        <button id="delete">删除</button>
-        <table border="1 "cellpadding="0" cellspacing="0" style="border-collapse:collapse;" width="100%" id="showDiv">
-            <tr>
-                <th align="center">贴　号</th>
-                <th align="center">标　题</th>
-                <th align="center">类　型</th>
-                <th align="center">作　者</th>
-                <th align="center">发布时间</th>
+        <p>请输入想删除的贴号:<label>
+            <input name="id" type="text" id="forumId">
+            <button id="delete">删除</button>
 
-            </tr>
+        </label></p>
+        <table border="1 "cellpadding="0" cellspacing="0" style="border-collapse:collapse;" width="100%" id="showDiv">
 
         </table>
     </div>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+    <style>
+        .like{ font-size:66px;  color:#ccc; cursor:pointer;}
+        .cs{color:#f00;}
+        .button {
+            border-color: cornsilk;
+            color: aliceblue;
+            background-color: lightskyblue;
+            border-style: hidden;
+            border-radius: 5px;
+            width: 100px;
+            height: 31px;
+            font-size: 16px;
+        }
+    </style>
+    <script>
+        $.ajax({
+            type: 'get',
+            url: '/forum_war_exploded/Query',
+            dataType: 'json',
+            success: function (result) {
+                document.getElementById("qaq").innerText = "标题:　" + result[0].title;
+                document.getElementById("qsq").innerText = "发表时间:　" + result[0].issuedTime;
+                document.getElementById("qwq").innerText = "作者:　" + result[0].author;
+                document.getElementById("qzq").innerText = "内容:　" + result[0].content;
+
+
+            },
+            error: function (e) {
+
+            }
+        });
+        $.ajax({
+            type : 'get',
+            url : '/forum_war_exploded/FindComments',
+            data : {
+                forumId : 132
+            },
+            dataType: 'json',
+            success : function (result){
+                $("#showDiv").empty();
+                $("#showDiv").append("<tr><th align=\"center\">用户id</th><th align=\"center\">回复内容</th><th align=\"center\">回复时间</th></tr>");
+                for(var i=0;i<result.length;i++)
+                {
+                    if (result[i].forumId === 132)
+                    $("#showDiv").append("<tr style='text-align: center'><td>"+result[i].id+"</td><td>"+result[i].comme+"</td><td>"+result[i].issuedTime+"</td></tr>");
+                }
+            },
+            error :function (e){
+                alert("查询空错误！")
+            }
+        });
+        $(document).ready(function (){
+            $('#sure').click(function(){
+                $.ajax({
+                    type : 'get',
+                    url : 'commentServlet',
+                    data : {
+                        forumId : 132,
+                        id : "001",
+                        comme : $('#comment').val(),
+                        fatherId : "456"
+                    },
+
+                    dataType : 'json',
+                    success : function (result){
+                        alert("回复成功")
+                        setTimeout(function (){
+                            window.location.href = "aaa.html";
+                        },3000);
+                    },
+                    error :function (e){
+                        alert("上传出错")
+                    }
+                });
+        });
+    });
+    </script>
+    <script>
+        $(function () {
+            $(".like").click(function () {
+                $(this).toggleClass('cs');
+            })
+        })
+    </script>
+</head>
+<body>
+<span id="qaq"></span>
+<br>
+<span id="qwq"></span>
+<br>
+<span id="qsq"></span>
+<br>
+<span id="qzq"></span>
+<br>
+<p>已有回复:</p>
+<br>
+<table border="1 "cellpadding="0" cellspacing="0" style="border-collapse:collapse;" width="100%" id="showDiv">
+
+</table>
+<br><br>
+<p class="like">&#10084;</p>
+<br><br>
+<p>回　复:<textarea  name="comment" type="text" id="comment"></textarea >
+<br>
+<div>
+    <br>
+    <input type="button" id="sure" name="sure" value="提交" class="button" onmouseover="this.style.backgroundColor='blue'" onmouseout="this.style.backgroundColor='lightskyblue'">
+    <input type="reset" id="resub" name="rein"  class="button" value="重置" onmouseover="this.style.backgroundColor='blue'" onmouseout="this.style.backgroundColor='lightskyblue'">
+</div>
+</body>
+</html>
