@@ -118,11 +118,12 @@ public class userDaoImpl implements userDao{
 
     @Override
     public int updateUser(User user) throws Exception {
-        String sql = "update post_bar.user set username =?where id=?";
+        String sql = "update post_bar.user,post_bar.posts set username =?,author = ? where id=? and post_bar.posts.author=post_bar.user.username";
         int result = 0;
         this.pstmt = this.conn.prepareStatement(sql);
         this.pstmt.setString(1, user.getUsername());
-        this.pstmt.setString(2, user.getId());
+        this.pstmt.setString(2, user.getUsername());
+        this.pstmt.setString(3, user.getId());
         result = pstmt.executeUpdate();
         pstmt.close();
         return result;

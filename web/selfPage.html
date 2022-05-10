@@ -4,13 +4,49 @@
     <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
     <link rel="stylesheet" href="css/selfPage.css">
     <script>
+        let str = "";
+        $(document).ready(function() {
+            $('#delete').click(function () {
+
+                $.ajax({
+                    type: 'post',
+                    url: '/forum_war_exploded/forumServlet',
+                    data: {
+                        forumId: $('#forumId').val(),
+                    },
+
+                    dataType: 'json',
+                    success: function (result) {
+                        alert("删除成功")
+                        setTimeout(function () {
+                            window.location.href = "Manage.html";
+                        }, 3000);
+                    },
+                    error: function (e) {
+                        alert("出错了")
+                    }
+                });
+            });
+            $.ajax({
+                type: 'get',
+                url: '/forum_war_exploded/FindUsersServlet',
+                dataType: 'json',
+                success: function (result) {
+                    document.getElementById("qaq").innerText = "用户名:　"+ result[0].username;
+                    str=result[0].username;
+                },
+                error: function (e) {
+
+                }
+            });
+        });
         $(document).ready(function () {
             $('#qqq').click(function () {
                 $.ajax({
                     type : 'post',
                     url : '/forum_war_exploded/Query',
                     data: {
-                        author : "123"
+                        author : str.toString()
                     },
                     dataType: 'json',
                     success : function (result){
@@ -22,7 +58,6 @@
                         }
                     },
                     error :function (e){
-                        alert("查询空错误！")
                     }
                 });
             });
@@ -97,6 +132,7 @@
                 dataType: 'json',
                 success: function (result) {
                 document.getElementById("qaq").innerText = "用户名:　"+ result[0].username;
+                    str=result[0].username;
                 },
                 error: function (e) {
 
